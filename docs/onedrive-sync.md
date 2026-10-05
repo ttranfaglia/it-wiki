@@ -1,6 +1,6 @@
 # Sync OneDrive to Your Computer
 
-*Last updated: 10/6/2026 · Applies to: Windows and Mac · Office 365 / Microsoft 365*
+*Last updated: 10/5/2026 · Applies to: Windows and Mac · Office 365 / Microsoft 365*
 
 OneDrive keeps your files safe in the cloud and, when you turn on sync, shows them in a folder on your computer. Edit a file on your computer and the change appears everywhere else, including on your phone and at office.com.
 
