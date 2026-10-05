@@ -5,10 +5,13 @@ const { marked } = require('marked');
 
 // --- BULLETPROOF CONFIGURATION FALLBACKS ---
 const ZENDESK_SUBDOMAIN = process.env.ZENDESK_SUBDOMAIN || process.env.ZD_SUBDOMAIN || 'YOUR_SUBDOMAIN'; 
+// 🛠️ Hardcode your actual sandbox string name here (e.g., 'mycompany-sandbox')
+const ZENDESK_SUBDOMAIN = 'napacoe1677781178'; 
+
 const ZENDESK_EMAIL = process.env.ZENDESK_EMAIL || process.env.ZD_EMAIL;
 const ZENDESK_API_TOKEN = process.env.ZENDESK_API_TOKEN || process.env.ZD_TOKEN;
-const TARGET_SECTION_ID = 'YOUR_SANDBOX_SECTION_ID'; // Keep your numerical Section ID here!
-const DOCS_DIR = './docs'; 
+const TARGET_SECTION_ID = 'YOUR_SANDBOX_SECTION_ID'; // Ensure your numerical Section ID is here!
+const DOCS_DIR = './docs';
 
 const authBuffer = Buffer.from(`${ZENDESK_EMAIL}/token:${ZENDESK_API_TOKEN}`);
 const authHeader = `Basic ${authBuffer.toString('base64')}`;
