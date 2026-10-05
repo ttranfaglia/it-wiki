@@ -54,4 +54,4 @@ async function uploadArticle(filePath) {
 }
 
 // Example: Run the function against a specific file
-uploadArticle('./docs/getting-started.md');
+uploadArticle('./docs/ad-password-reset.md');
