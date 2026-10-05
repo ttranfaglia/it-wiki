@@ -3,21 +3,22 @@ const path = require('path');
 const axios = require('axios');
 const { marked } = require('marked');
 
-// --- BULLETPROOF CONFIGURATION FALLBACKS ---
-const ZENDESK_SUBDOMAIN = process.env.ZENDESK_SUBDOMAIN || process.env.ZD_SUBDOMAIN || 'YOUR_SUBDOMAIN'; 
+// --- BULLETPROOF CONFIGURATION ---
 // 🛠️ Hardcode your actual sandbox string name here (e.g., 'mycompany-sandbox')
-const ZENDESK_SUBDOMAIN = 'napacoe1677781178'; 
+const ZENDESK_SUBDOMAIN = 'your-actual-sandbox-prefix'; 
 
 const ZENDESK_EMAIL = process.env.ZENDESK_EMAIL || process.env.ZD_EMAIL;
 const ZENDESK_API_TOKEN = process.env.ZENDESK_API_TOKEN || process.env.ZD_TOKEN;
-const TARGET_SECTION_ID = 'YOUR_SANDBOX_SECTION_ID'; // Ensure your numerical Section ID is here!
-const DOCS_DIR = './docs';
+const TARGET_SECTION_ID = 'YOUR_SANDBOX_SECTION_ID'; // Make sure your numeric Section ID is here!
+const DOCS_DIR = './docs'; 
 
 const authBuffer = Buffer.from(`${ZENDESK_EMAIL}/token:${ZENDESK_API_TOKEN}`);
 const authHeader = `Basic ${authBuffer.toString('base64')}`;
 const baseUrl = `https://${ZENDESK_SUBDOMAIN}://`;
 
 // 🔍 Hard debug log so we can see what it evaluated to:
+console.log(`🌐 Connecting to Zendesk instance at: https://${ZENDESK_SUBDOMAIN}.zendesk.com`);
+
 console.log(`🌐 Connecting to Zendesk instance at: https://${ZENDESK_SUBDOMAIN}.zendesk.com`);
 
 async function getExistingArticles() {
