@@ -7,7 +7,7 @@ const { marked } = require('marked');
 const ZENDESK_SUBDOMAIN = process.env.ZENDESK_SUBDOMAIN;
 const ZENDESK_EMAIL = process.env.ZENDESK_EMAIL;
 const ZENDESK_API_TOKEN = process.env.ZENDESK_API_TOKEN;
-const TARGET_SECTION_ID = 'YOUR_SANDBOX_SECTION_ID'; // Make sure your numeric Section ID is here!
+const TARGET_SECTION_ID = '39034934684941'; // Make sure your numeric Section ID is here!
 const DOCS_DIR = './docs'; 
 
 const authBuffer = Buffer.from(`${ZENDESK_EMAIL}/token:${ZENDESK_API_TOKEN}`);
