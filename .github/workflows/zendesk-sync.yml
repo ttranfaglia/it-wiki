@@ -1,28 +1,30 @@
-name: Sync Docs to Zendesk
+name: Sync Docs to Zendesk Sandbox
 on:
   push:
     branches:
       - main
     paths:
-      - 'docs/**.md' # Only runs when files in your docs folder change
+      - 'docs/**.md'
+  workflow_dispatch: # Allows manual trigger button
 
 jobs:
   sync:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout Code
-        uses: actions/checkout@v3
+      - name: Checkout repository code
+        uses: actions/checkout@v4
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v3
+      - name: Set up Node.js environment
+        uses: actions/setup-node@v4
         with:
-          node-version: '18'
+          node-version: '20'
 
-      - name: Install Dependencies
+      - name: Install Markdown and HTTP packages
         run: npm install axios marked
 
-      - name: Run Sync Script
+      - name: Execute Zendesk Sync Script
         env:
+          # 🔐 This tells GitHub to map your exact Repository Secrets directly to these variables
           ZENDESK_SUBDOMAIN: ${{ secrets.ZD_SUBDOMAIN }}
           ZENDESK_EMAIL: ${{ secrets.ZD_EMAIL }}
           ZENDESK_API_TOKEN: ${{ secrets.ZD_TOKEN }}
