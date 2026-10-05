@@ -90,4 +90,4 @@ A passphrase of several unrelated words is easier to remember and harder to gues
 
 **[Submit a Zendesk Ticket](https://napacoe.zendesk.com/)**
 
-Please include your username, what you tried, and any error message (a screenshot helps). Do not send your password.
+Please include your username, what you tried, and any error message (a screenshot helps). Do not send your password!
