@@ -3,55 +3,82 @@ const path = require('path');
 const axios = require('axios');
 const { marked } = require('marked');
 
-// --- CONFIGURATION ---
-const ZENDESK_SUBDOMAIN = 'napacoe1677781178'; // e.g., 'mycompany'
-const ZENDESK_EMAIL = 'ttranfaglia@napacoe.org';
-const ZENDESK_API_TOKEN = 'YyhXkGR3H5sSE2Is9SMfwqggpoFIKPWP1urYha3i5';
-const TARGET_SECTION_ID = '39034934881037'; // The numeric section ID
+// Configuration from environment variables
+const ZENDESK_SUBDOMAIN = process.env.ZENDESK_SUBDOMAIN;
+const ZENDESK_EMAIL = process.env.ZENDESK_EMAIL;
+const ZENDESK_API_TOKEN = process.env.ZENDESK_API_TOKEN;
+const TARGET_SECTION_ID = 'YOUR_SANDBOX_SECTION_ID'; // Make sure your numeric Section ID is here!
+const DOCS_DIR = './docs'; 
 
-// Auth string formatting for Zendesk API token access
 const authBuffer = Buffer.from(`${ZENDESK_EMAIL}/token:${ZENDESK_API_TOKEN}`);
 const authHeader = `Basic ${authBuffer.toString('base64')}`;
+const baseUrl = `https://${ZENDESK_SUBDOMAIN}://`;
 
-/**
- * Converts MD to HTML and sends it to Zendesk
- */
-async function uploadArticle(filePath) {
+async function getExistingArticles() {
+  try {
+    const url = `${baseUrl}/sections/${TARGET_SECTION_ID}/articles.json`;
+    const response = await axios.get(url, { headers: { 'Authorization': authHeader } });
+    return response.data.articles || [];
+  } catch (error) {
+    console.error('❌ Error fetching existing articles:', error.message);
+    return [];
+  }
+}
+
+async function syncArticle(filePath, existingArticles) {
   try {
     const rawMarkdown = fs.readFileSync(filePath, 'utf8');
-    
-    // 1. Convert Markdown syntax to clean HTML for Zendesk Guide
     const htmlBody = marked.parse(rawMarkdown);
     
-    // 2. Determine article title from the filename (e.g., "user-guide.md" becomes "User Guide")
     const fileName = path.basename(filePath, '.md');
     const title = fileName.replace(/[-_]/g, ' ').replace(/\b\w/g, c => c.toUpperCase());
 
-    // 3. Build the payload required by Zendesk
     const payload = {
       article: {
         title: title,
         body: htmlBody,
-        locale: 'en-us', // Change to your default Help Center language
-        user_segment_id: null, // Null means visible to everyone
-        permission_group_id: null // Will default to Guide Admins
+        locale: 'en-us',
+        user_segment_id: null, 
+        draft: false 
       }
     };
 
-    // 4. Send POST request to Zendesk
-    const url = `https://${ZENDESK_SUBDOMAIN}://{TARGET_SECTION_ID}/articles.json`;
-    const response = await axios.post(url, payload, {
-      headers: {
-        'Authorization': authHeader,
-        'Content-Type': 'application/json'
-      }
-    });
+    const match = existingArticles.find(a => a.title.toLowerCase() === title.toLowerCase());
 
-    console.log(`✅ Successfully created article: "${title}" (ID: ${response.data.article.id})`);
+    if (match) {
+      const updateUrl = `${baseUrl}/articles/${match.id}.json`;
+      await axios.put(updateUrl, payload, {
+        headers: { 'Authorization': authHeader, 'Content-Type': 'application/json' }
+      });
+      console.log(`🔄 Updated existing article: "${title}" (ID: ${match.id})`);
+    } else {
+      const createUrl = `${baseUrl}/sections/${TARGET_SECTION_ID}/articles.json`;
+      const response = await axios.post(createUrl, payload, {
+        headers: { 'Authorization': authHeader, 'Content-Type': 'application/json' }
+      });
+      console.log(`✅ Created brand new article: "${title}" (ID: ${response.data.article.id})`);
+    }
   } catch (error) {
-    console.error(`❌ Error uploading ${filePath}:`, error.response ? error.response.data : error.message);
+    console.error(`❌ Error syncing ${filePath}:`, error.response ? error.response.data : error.message);
   }
 }
 
-// Example: Run the function against a specific file
-uploadArticle('./docs/ad-password-reset.md');
+async function main() {
+  if (!fs.existsSync(DOCS_DIR)) {
+    console.log(`Folder ${DOCS_DIR} not found.`);
+    return;
+  }
+
+  console.log('🔍 Scanning Zendesk for existing articles...');
+  const existingArticles = await getExistingArticles();
+
+  const files = fs.readdirSync(DOCS_DIR).filter(file => file.endsWith('.md'));
+  console.log(`📂 Found ${files.length} Markdown file(s) to sync.`);
+
+  for (const file of files) {
+    await syncArticle(path.join(DOCS_DIR, file), existingArticles);
+  }
+}
+
+// 📦 This clean function call runs everything safely
+main();
