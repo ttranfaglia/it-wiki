@@ -22,9 +22,9 @@ jobs:
       - name: Install Markdown and HTTP packages
         run: npm install axios marked
 
-      - name: Execute Zendesk Sync Script
+       - name: Execute Zendesk Sync Script
         env:
-          # 🔐 This tells GitHub to map your exact Repository Secrets directly to these variables
+          # 🔐 Maps your explicit GitHub Repository secret name to the environment runner
           ZENDESK_SUBDOMAIN: ${{ secrets.ZD_SUBDOMAIN }}
           ZENDESK_EMAIL: ${{ secrets.ZD_EMAIL }}
           ZENDESK_API_TOKEN: ${{ secrets.ZD_TOKEN }}
