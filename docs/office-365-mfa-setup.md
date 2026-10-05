@@ -1,6 +1,6 @@
 # Set Up Multi-Factor Authentication (MFA) for Office 365
 
-*Last updated: [DATE] · Applies to: Office 365 / Microsoft 365 sign-in*
+*Last updated: 10/5/2026 · Applies to: Office 365 / Microsoft 365 sign-in*
 
 
 Multi-factor authentication (MFA) adds a second check when you sign in, such as a notification on your phone. Even if someone learns your password, they can't get in without it.
