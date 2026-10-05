@@ -13,6 +13,8 @@ const DOCS_DIR = './docs';
 const authBuffer = Buffer.from(`${ZENDESK_EMAIL}/token:${ZENDESK_API_TOKEN}`);
 const authHeader = `Basic ${authBuffer.toString('base64')}`;
 const baseUrl = `https://${ZENDESK_SUBDOMAIN}://`;
+// 🔍 ADD THIS LOG LINE FOR DEBUGGING:
+console.log(`🌐 Attemping to connect to: https://${ZENDESK_SUBDOMAIN}.zendesk.com`);
 
 async function getExistingArticles() {
   try {
