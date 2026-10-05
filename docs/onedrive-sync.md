@@ -12,7 +12,7 @@ OneDrive keeps your files safe in the cloud and, when you turn on sync, shows th
 
 ## Set up OneDrive on your computer
 
-### Windows
+### Windows 
 
 OneDrive is already installed on most Windows computers.
 
