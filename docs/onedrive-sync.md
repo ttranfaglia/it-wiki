@@ -8,7 +8,7 @@ OneDrive keeps your files safe in the cloud and, when you turn on sync, shows th
 
 - Your work or school account (for example, **username@napacoe.org**)
 - An internet connection
-- About 5 minutes
+- About 5 minutes 
 
 ## Set up OneDrive on your computer
 
