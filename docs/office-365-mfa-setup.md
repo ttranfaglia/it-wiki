@@ -11,7 +11,7 @@ Multi-factor authentication (MFA) adds a second check when you sign in, such as 
 - A computer, and your smartphone (iPhone or Android)
 - About 5 minutes
 
-## Recommended: Microsoft Authenticator app
+## Recommended: Microsoft Authenticator app 
 
 ### Step 1: Install the app on your phone
 
