@@ -4,8 +4,8 @@ const axios = require('axios');
 const { marked } = require('marked');
 
 // Configuration from environment variables
-const ZD_SUBDOMAIN = process.env.ZENDESK_SUBDOMAIN;
-const ZD_EMAIL = process.env.ZENDESK_EMAIL;
+const ZENDESK_SUBDOMAIN = process.env.ZENDESK_SUBDOMAIN;
+const ZENDESK_EMAIL = process.env.ZENDESK_EMAIL;
 const ZENDESK_API_TOKEN = process.env.ZENDESK_API_TOKEN;
 const TARGET_SECTION_ID = '39034934684941'; // Make sure your numeric Section ID is here!
 const DOCS_DIR = './docs'; 
