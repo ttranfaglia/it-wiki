@@ -1,6 +1,6 @@
 # Add a Shared Mailbox to Outlook
 
-*Last updated: 10/6/2026 · Applies to: Outlook (classic and new) and Outlook on the web · Office 365 / Microsoft 365*
+*Last updated: 10/5/2026 · Applies to: Outlook (classic and new) and Outlook on the web · Office 365 / Microsoft 365*
 
 A shared mailbox is an inbox that several people use, for example **info@napacoe.org** or a department address. Everyone with access can read and send from it, so there is no shared password to pass around.
 
