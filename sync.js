@@ -81,4 +81,4 @@ async function main() {
 }
 
 // 📦 This clean function call runs everything safely
-main();
+main(); 
