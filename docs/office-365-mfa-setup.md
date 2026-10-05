@@ -63,7 +63,7 @@ You're set. The next time you sign in to Office 365 from a new place or device, 
 - Approving a prompt you didn't start is how many accounts get taken over. If in doubt, deny it.
 - Keep your phone locked with a PIN, fingerprint or face.
 
-## Still stuck?
+## Still stuck??
 
 **[Submit a Zendesk Ticket](https://napacoe.zendesk.com/)**
 
