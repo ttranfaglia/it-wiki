@@ -3,8 +3,9 @@ const path = require('path');
 const axios = require('axios');
 const { marked } = require('marked');
 
-// --- 🛠️ EXPLICIT DIRECT ENDPOINT SETTINGS ---
-const ZENDESK_SUBDOMAIN = 'napacoe1677781178'; 
+// --- 🛠️ ABSOLUTE ENDPOINT INFRASTRUCTURE ---
+// Using a fully declared domain variable prevents the Node.js dns lookup layer from failing
+const baseUrl = 'https://zendesk.com';
 const TARGET_SECTION_ID = '49419231917325'; 
 const DOCS_DIR = './docs'; 
 
@@ -13,14 +14,16 @@ const ZENDESK_API_TOKEN = (process.env.ZENDESK_API_TOKEN || '').trim();
 
 const authBuffer = Buffer.from(`${ZENDESK_EMAIL}/token:${ZENDESK_API_TOKEN}`);
 const authHeader = `Basic ${authBuffer.toString('base64')}`;
-const baseUrl = `https://${ZENDESK_SUBDOMAIN}://`;
 
-console.log(`📡 Attempting connection directly to destination framework...`);
+console.log(`📡 Attempting connection directly to absolute destination framework: ${baseUrl}`);
 
 async function getExistingArticles() {
   try {
     const url = `${baseUrl}/sections/${TARGET_SECTION_ID}/articles.json`;
-    const response = await axios.get(url, { headers: { 'Authorization': authHeader } });
+    const response = await axios.get(url, { 
+      headers: { 'Authorization': authHeader },
+      timeout: 15000 // Extends timeout to prevent cloud runner drops
+    });
     return response.data.articles || [];
   } catch (error) {
     console.error('❌ getExistingArticles failed:');
