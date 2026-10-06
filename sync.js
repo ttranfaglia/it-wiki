@@ -14,7 +14,9 @@ const DOCS_DIR = './docs';
 
 const authBuffer = Buffer.from(`${ZENDESK_EMAIL}/token:${ZENDESK_API_TOKEN}`);
 const authHeader = `Basic ${authBuffer.toString('base64')}`;
-const baseUrl = `https://${ZENDESK_SUBDOMAIN}://`;
+const baseUrl = ZENDESK_SUBDOMAIN.includes('.zendesk.com') 
+  ? `https://${ZENDESK_SUBDOMAIN}/api/v2/help_center`
+  : `https://${ZENDESK_SUBDOMAIN}://`;
 
 // 🔍 Hard debug log so we can see what it evaluated to:
 console.log(`🌐 Connecting to Zendesk instance at: https://${ZENDESK_SUBDOMAIN}.zendesk.com`);
