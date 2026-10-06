@@ -4,24 +4,22 @@ const axios = require('axios');
 const { marked } = require('marked');
 
 // --- BULLETPROOF CONFIGURATION ---
-// 🛠️ Hardcode your actual sandbox string name here (e.g., 'mycompany-sandbox')
-const ZENDESK_SUBDOMAIN = 'napacoe1677781178'; 
+// 🛠️ Hardcode your actual sandbox string prefix here (e.g., 'mycompany-sandbox')
+const ZENDESK_SUBDOMAIN = 'your-actual-sandbox-prefix'; 
 
 const ZENDESK_EMAIL = process.env.ZENDESK_EMAIL || process.env.ZD_EMAIL;
 const ZENDESK_API_TOKEN = process.env.ZENDESK_API_TOKEN || process.env.ZD_TOKEN;
-const TARGET_SECTION_ID = '49419231917325'; // Make sure your numeric Section ID is here!
+
+// 🛠️ Ensure your verified 14-digit Sandbox Section ID is here:
+const TARGET_SECTION_ID = '49419231917325'; 
 const DOCS_DIR = './docs'; 
 
 const authBuffer = Buffer.from(`${ZENDESK_EMAIL}/token:${ZENDESK_API_TOKEN}`);
 const authHeader = `Basic ${authBuffer.toString('base64')}`;
-const baseUrl = ZENDESK_SUBDOMAIN.includes('.zendesk.com') 
-  ? `https://${ZENDESK_SUBDOMAIN}/api/v2/help_center`
-  : `https://${ZENDESK_SUBDOMAIN}://`;
-
-// 🔍 Hard debug log so we can see what it evaluated to:
-console.log(`🌐 Connecting to Zendesk instance at: https://${ZENDESK_SUBDOMAIN}.zendesk.com`);
+const baseUrl = `https://${ZENDESK_SUBDOMAIN}://`;
 
 console.log(`🌐 Connecting to Zendesk instance at: https://${ZENDESK_SUBDOMAIN}.zendesk.com`);
+
 
 async function getExistingArticles() {
   try {
