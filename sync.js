@@ -9,7 +9,7 @@ const ZENDESK_SUBDOMAIN = 'napacoe1677781178.zendesk.com';
 
 const ZENDESK_EMAIL = process.env.ZENDESK_EMAIL || process.env.ZD_EMAIL;
 const ZENDESK_API_TOKEN = process.env.ZENDESK_API_TOKEN || process.env.ZD_TOKEN;
-const TARGET_SECTION_ID = '39034934881037'; // Make sure your numeric Section ID is here!
+const TARGET_SECTION_ID = '49419231917325'; // Make sure your numeric Section ID is here!
 const DOCS_DIR = './docs'; 
 
 const authBuffer = Buffer.from(`${ZENDESK_EMAIL}/token:${ZENDESK_API_TOKEN}`);
