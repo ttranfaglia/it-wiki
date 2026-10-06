@@ -4,7 +4,7 @@ const axios = require('axios');
 const { marked } = require('marked');
 
 // --- 🛠️ FIXED ABSOLUTE ENDPOINT INFRASTRUCTURE ---
-const baseUrl = 'https://napacoe1677781178.zendesk.com  ';
+const baseUrl = 'https://zendesk.com';
 const TARGET_SECTION_ID = '49419231917325'; 
 const DOCS_DIR = './docs'; 
 
@@ -15,6 +15,7 @@ const authBuffer = Buffer.from(`${ZENDESK_EMAIL}/token:${ZENDESK_API_TOKEN}`);
 const authHeader = `Basic ${authBuffer.toString('base64')}`;
 
 console.log(`📡 Attempting connection directly to absolute destination framework: ${baseUrl}`);
+
 
 
 async function getExistingArticles() {
