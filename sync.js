@@ -2,21 +2,20 @@ const fs = require('fs');
 const path = require('path');
 const axios = require('axios');
 const { marked } = require('marked');
- 
-// --- CLEAN CONFIGURATION RUNNER ---
-// Grab the hardcoded string immediately without any modification filters
+
+// --- STRIPPED DIAGNOSTIC RUNNER ---
 const ZENDESK_SUBDOMAIN = 'napacoe1677781178'; 
+const TARGET_SECTION_ID = '49419231917325'; 
+const DOCS_DIR = './docs'; 
 
 const ZENDESK_EMAIL = (process.env.ZENDESK_EMAIL || process.env.ZD_EMAIL || '').trim();
 const ZENDESK_API_TOKEN = (process.env.ZENDESK_API_TOKEN || process.env.ZD_TOKEN || '').trim();
-const TARGET_SECTION_ID = '49419231917325'; 
-const DOCS_DIR = './docs'; 
 
 const authBuffer = Buffer.from(`${ZENDESK_EMAIL}/token:${ZENDESK_API_TOKEN}`);
 const authHeader = `Basic ${authBuffer.toString('base64')}`;
 const baseUrl = `https://${ZENDESK_SUBDOMAIN}://`;
 
-console.log(`🌐 Initializing connection string infrastructure...`);
+console.log(`📡 [DIAGNOSTIC] Initializing request tracking to Base URL layout...`);
 
 async function getExistingArticles() {
   try {
@@ -24,7 +23,14 @@ async function getExistingArticles() {
     const response = await axios.get(url, { headers: { 'Authorization': authHeader } });
     return response.data.articles || [];
   } catch (error) {
-    console.error('❌ Error fetching existing articles:', error.message);
+    console.error('❌ [DIAGNOSTIC CRITICAL] getExistingArticles failed:');
+    if (error.response) {
+      console.error(`   -> Status: ${error.response.status}`);
+      console.error(`   -> Data: ${JSON.stringify(error.response.data)}`);
+    } else {
+      console.error(`   -> Network Message: ${error.message}`);
+      console.error(`   -> Full Code: ${error.code}`);
+    }
     return [];
   }
 }
@@ -63,7 +69,13 @@ async function syncArticle(filePath, existingArticles) {
       console.log(`✅ Created brand new article: "${title}" (ID: ${response.data.article.id})`);
     }
   } catch (error) {
-    console.error(`❌ Error syncing ${filePath}:`, error.message);
+    console.error(`❌ [DIAGNOSTIC CRITICAL] syncArticle failed for ${filePath}:`);
+    if (error.response) {
+      console.error(`   -> Status: ${error.response.status}`);
+      console.error(`   -> Data: ${JSON.stringify(error.response.data)}`);
+    } else {
+      console.error(`   -> Network Message: ${error.message}`);
+    }
   }
 }
 
@@ -73,11 +85,11 @@ async function main() {
     return;
   }
 
-  console.log('🔍 Scanning Zendesk for existing articles... For Subdomain: ' + ZENDESK_SUBDOMAIN);
+  console.log('🔍 Executing database check sequence...');
   const existingArticles = await getExistingArticles();
 
   const files = fs.readdirSync(DOCS_DIR).filter(file => file.endsWith('.md'));
-  console.log(`📂 Found ${files.length} Markdown file(s) to sync.`);
+  console.log(`📂 Processing target files pool: ${files.length} items found.`);
 
   for (const file of files) {
     await syncArticle(path.join(DOCS_DIR, file), existingArticles);
