@@ -3,10 +3,9 @@ const path = require('path');
 const axios = require('axios');
 const { marked } = require('marked');
 
-// --- SANITIZED ENVIRONMENT RUNNER ---
-// This grabs your refreshed secret and strips out any hidden tracking spaces or line breaks
-const rawSubdomain = process.env.ZENDESK_SUBDOMAIN || process.env.ZD_SUBDOMAIN || 'napacoe1677781178';
-const ZENDESK_SUBDOMAIN = rawSubdomain.replace(/[\(\r\\)n\t ]/g, '').trim();
+// --- CLEAN CONFIGURATION RUNNER ---
+// Grab the hardcoded string immediately without any modification filters
+const ZENDESK_SUBDOMAIN = 'napacoe1677781178'; 
 
 const ZENDESK_EMAIL = (process.env.ZENDESK_EMAIL || process.env.ZD_EMAIL || '').trim();
 const ZENDESK_API_TOKEN = (process.env.ZENDESK_API_TOKEN || process.env.ZD_TOKEN || '').trim();
