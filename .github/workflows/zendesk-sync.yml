@@ -10,9 +10,8 @@ on:
 jobs:
   sync:
     runs-on: ubuntu-latest
-    # 🔐 Defining env at the job level makes them bulletproof for the script runner
     env:
-      ZENDESK_SUBDOMAIN: ${{ secrets.ZD_SUBDOMAIN }}
+      # 🔐 ONLY pass sensitive credentials through secrets. Do NOT map subdomain variables here.
       ZENDESK_EMAIL: ${{ secrets.ZD_EMAIL }}
       ZENDESK_API_TOKEN: ${{ secrets.ZD_TOKEN }}
     steps:
