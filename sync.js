@@ -3,21 +3,21 @@ const path = require('path');
 const axios = require('axios');
 const { marked } = require('marked');
 
-// --- STRIPPED-DOWN BULLETPROOF CONFIGURATION ---
-// 🛠️ Type your raw sandbox prefix here (e.g., 'mycompany-sandbox')
+// --- 🛠️ EXPLICIT NAPACOE CONFIGURATION ---
 const ZENDESK_SUBDOMAIN = 'napacoe1677781178'; 
-
-const ZENDESK_EMAIL = (process.env.ZENDESK_EMAIL || process.env.ZD_EMAIL || '').trim();
-const ZENDESK_API_TOKEN = (process.env.ZENDESK_API_TOKEN || process.env.ZD_TOKEN || '').trim();
 const TARGET_SECTION_ID = '49419231917325'; 
 const DOCS_DIR = './docs'; 
 
-// Basic Authentication formatting
+// Sensitive tokens continue using secure environment secrets
+const ZENDESK_EMAIL = (process.env.ZENDESK_EMAIL || process.env.ZD_EMAIL || '').trim();
+const ZENDESK_API_TOKEN = (process.env.ZENDESK_API_TOKEN || process.env.ZD_TOKEN || '').trim();
+
+// Construct base variables safely
 const authBuffer = Buffer.from(`${ZENDESK_EMAIL}/token:${ZENDESK_API_TOKEN}`);
 const authHeader = `Basic ${authBuffer.toString('base64')}`;
 const baseUrl = `https://${ZENDESK_SUBDOMAIN}://`;
 
-console.log(`🌐 Target Endpoint verified: ${baseUrl}`);
+console.log(`🌐 Hardcoded Endpoint Verified: ${baseUrl}`);
 
 async function getExistingArticles() {
   try {
