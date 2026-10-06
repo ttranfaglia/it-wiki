@@ -74,7 +74,7 @@ async function main() {
     return;
   }
 
-  console.log('🔍 Scanning Zendesk for existing articles...');
+  console.log('🔍 Scanning Zendesk for existing articles... For Subdomain: ' + ZENDESK_SUBDOMAIN);
   const existingArticles = await getExistingArticles();
 
   const files = fs.readdirSync(DOCS_DIR).filter(file => file.endsWith('.md'));
