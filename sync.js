@@ -3,28 +3,21 @@ const path = require('path');
 const axios = require('axios');
 const { marked } = require('marked');
 
-// --- BULLETPROOF CONFIGURATION ---
-// 🛠️ REPLACE THIS PLACEHOLDER TEXT WITH YOUR REAL RAW WORKSPACE PREFIX NAME!
-// (e.g. if your URL is 'testcompany123.zendesk.com', write 'testcompany123')
+// --- STRIPPED-DOWN BULLETPROOF CONFIGURATION ---
+// 🛠️ Type your raw sandbox prefix here (e.g., 'mycompany-sandbox')
 const ZENDESK_SUBDOMAIN = 'napacoe1677781178'; 
 
-// These remain mapped to GitHub secrets because they are sensitive passwords
 const ZENDESK_EMAIL = (process.env.ZENDESK_EMAIL || process.env.ZD_EMAIL || '').trim();
 const ZENDESK_API_TOKEN = (process.env.ZENDESK_API_TOKEN || process.env.ZD_TOKEN || '').trim();
-
-// 🛠️ Your verified Sandbox Section ID remains hardcoded here:
 const TARGET_SECTION_ID = '49419231917325'; 
 const DOCS_DIR = './docs'; 
 
-// Format the final runtime parameters
+// Basic Authentication formatting
 const authBuffer = Buffer.from(`${ZENDESK_EMAIL}/token:${ZENDESK_API_TOKEN}`);
 const authHeader = `Basic ${authBuffer.toString('base64')}`;
 const baseUrl = `https://${ZENDESK_SUBDOMAIN}://`;
 
-// 🔍 Visual confirmation log
 console.log(`🌐 Target Endpoint verified: ${baseUrl}`);
-
-
 
 async function getExistingArticles() {
   try {
@@ -71,7 +64,7 @@ async function syncArticle(filePath, existingArticles) {
       console.log(`✅ Created brand new article: "${title}" (ID: ${response.data.article.id})`);
     }
   } catch (error) {
-    console.error(`❌ Error syncing ${filePath}:`, error.response ? error.response.data : error.message);
+    console.error(`❌ Error syncing ${filePath}:`, error.message);
   }
 }
 
@@ -92,5 +85,4 @@ async function main() {
   }
 }
 
-// 📦 This clean function call runs everything safely
-main(); 
+main();
