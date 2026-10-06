@@ -3,27 +3,27 @@ const path = require('path');
 const axios = require('axios');
 const { marked } = require('marked');
 
-// --- BULLETPROOF CONFIGURATION WITH AUTOMATIC CLEANUP ---
-let rawSubdomain = process.env.ZENDESK_SUBDOMAIN || process.env.ZD_SUBDOMAIN || 'napacoe1677781178';
+// --- BULLETPROOF CONFIGURATION ---
+// 🛠️ REPLACE THIS PLACEHOLDER TEXT WITH YOUR REAL RAW WORKSPACE PREFIX NAME!
+// (e.g. if your URL is 'testcompany123.zendesk.com', write 'testcompany123')
+const ZENDESK_SUBDOMAIN = 'napacoe1677781178'; 
 
-// Clean the string: remove spaces, force lowercase, and strip accidental domain inclusions
-let cleanSubdomain = rawSubdomain.trim().toLowerCase();
-cleanSubdomain = cleanSubdomain.replace('https://', '').replace('http://', '');
-cleanSubdomain = cleanSubdomain.split('.')[0]; // Keeps ONLY the raw prefix (e.g. "mycompany-sandbox")
-
-const ZENDESK_SUBDOMAIN = cleanSubdomain;
+// These remain mapped to GitHub secrets because they are sensitive passwords
 const ZENDESK_EMAIL = (process.env.ZENDESK_EMAIL || process.env.ZD_EMAIL || '').trim();
 const ZENDESK_API_TOKEN = (process.env.ZENDESK_API_TOKEN || process.env.ZD_TOKEN || '').trim();
+
+// 🛠️ Your verified Sandbox Section ID remains hardcoded here:
 const TARGET_SECTION_ID = '49419231917325'; 
 const DOCS_DIR = './docs'; 
 
-// Format the final URL and credentials safely
+// Format the final runtime parameters
 const authBuffer = Buffer.from(`${ZENDESK_EMAIL}/token:${ZENDESK_API_TOKEN}`);
 const authHeader = `Basic ${authBuffer.toString('base64')}`;
 const baseUrl = `https://${ZENDESK_SUBDOMAIN}://`;
 
-// 🔍 Print the clean domain directly to your logs
+// 🔍 Visual confirmation log
 console.log(`🌐 Target Endpoint verified: ${baseUrl}`);
+
 
 
 async function getExistingArticles() {
