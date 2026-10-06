@@ -4,13 +4,13 @@ const axios = require('axios');
 const { marked } = require('marked');
 
 // --- BULLETPROOF CONFIGURATION ---
-// 🛠️ Hardcode your actual sandbox string prefix here (e.g., 'mycompany-sandbox')
-const ZENDESK_SUBDOMAIN = 'your-actual-sandbox-prefix'; 
+// 🛠️ REPLACE 'your-actual-sandbox-prefix' WITH YOUR REAL COMPANY PREFIX NAME:
+const ZENDESK_SUBDOMAIN = 'napacoe1677781178'; 
 
 const ZENDESK_EMAIL = process.env.ZENDESK_EMAIL || process.env.ZD_EMAIL;
 const ZENDESK_API_TOKEN = process.env.ZENDESK_API_TOKEN || process.env.ZD_TOKEN;
 
-// 🛠️ Ensure your verified 14-digit Sandbox Section ID is here:
+// 🛠️ Ensure your verified 14-digit Sandbox Section ID remains here:
 const TARGET_SECTION_ID = '49419231917325'; 
 const DOCS_DIR = './docs'; 
 
