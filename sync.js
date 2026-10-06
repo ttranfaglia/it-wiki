@@ -4,7 +4,7 @@ const axios = require('axios');
 const { marked } = require('marked');
 
 // --- BULLETPROOF CONFIGURATION WITH AUTOMATIC CLEANUP ---
-let rawSubdomain = process.env.ZENDESK_SUBDOMAIN || process.env.ZD_SUBDOMAIN || 'your-actual-sandbox-prefix';
+let rawSubdomain = process.env.ZENDESK_SUBDOMAIN || process.env.ZD_SUBDOMAIN || 'napacoe1677781178';
 
 // Clean the string: remove spaces, force lowercase, and strip accidental domain inclusions
 let cleanSubdomain = rawSubdomain.trim().toLowerCase();
